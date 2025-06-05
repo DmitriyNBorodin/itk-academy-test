@@ -1,0 +1,24 @@
+services:
+  itk-academy-test:
+    build: itk-academy-test
+    image: itk-test-image
+    container_name: itk-test-container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - itk-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://itk-db:5432/itk_db
+      - SPRING_DATASOURCE_USERNAME=db_user
+      - SPRING_DATASOURCE_PASSWORD=12345
+      - SPRING_DRIVER_CLASS_NAME=org.postgresql.Driver
+
+  itk-db:
+    image: postgres:16.1
+    container_name: itk-db-container
+    ports:
+      - "6532:5432"
+    environment:
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_USER=db_user
+      - POSTGRES_DB=itk_db
